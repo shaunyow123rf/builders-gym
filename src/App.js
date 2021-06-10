@@ -1,50 +1,64 @@
+import { useState } from 'react';
 import './App.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-
-const backgroundStyle = {
-  backgroundImage: `url("https://assets-cdn.123rf.com/index/static/banner/global/101334292.jpg")`,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'column',
-  height: '100%',
-  backgroundSize: 'cover',
-  backgroundPosition: '50%',
-};
-
-const headerStyle = {
-  flex: '1 1',
-  width: '100%',
-  background: 'linear-gradient(rgba(0,0,0,.6),transparent)',
-  backgroundSize: '100% 100px',
-  backgroundRepeat: 'no-repeat',
-}
-
-const arrowDown = {
-  position: 'relative',
-  top: '-5px',
-  content: "",
-  display: 'inline-block',
-  width: '6px',
-  height: '6px',
-  borderRight: '0.2em solid white',
-  borderTop: '0.2em solid white',
-  transform: 'rotate(135deg)',
-  marginRight: '0.5em',
-  marginLeft: '0.5em',
-}
-
-const componentStyle = {
-  height: 'auto',
-  minHeight: '458px',
-  backgroundColor: '#fff',
-  boxShadow: '0 2px 8px 0 rgb(0 0 0 / 20%)',
-  overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
-}
+import { getToken, onMessageListener } from './firebase';
 
 function App() {
+  const [show, setShow] = useState(false);
+  const [isTokenFound, setTokenFound] = useState(false);
+  console.log(show);
+  console.log(isTokenFound);
+  getToken(setTokenFound);
+
+  onMessageListener().then(payload => {
+    setShow(true);
+    // setNotification({title: payload.notification.title, body: payload.notification.body})
+    console.log(payload);
+  }).catch(err => console.log('failed: ', err));
+
+  const backgroundStyle = {
+    backgroundImage: `url("https://assets-cdn.123rf.com/index/static/banner/global/101334292.jpg")`,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: '100%',
+    backgroundSize: 'cover',
+    backgroundPosition: '50%',
+  };
+  
+  const headerStyle = {
+    flex: '1 1',
+    width: '100%',
+    background: 'linear-gradient(rgba(0,0,0,.6),transparent)',
+    backgroundSize: '100% 100px',
+    backgroundRepeat: 'no-repeat',
+  }
+  
+  const arrowDown = {
+    position: 'relative',
+    top: '-5px',
+    content: "",
+    display: 'inline-block',
+    width: '6px',
+    height: '6px',
+    borderRight: '0.2em solid white',
+    borderTop: '0.2em solid white',
+    transform: 'rotate(135deg)',
+    marginRight: '0.5em',
+    marginLeft: '0.5em',
+  }
+  
+  const componentStyle = {
+    height: 'auto',
+    minHeight: '458px',
+    backgroundColor: '#fff',
+    boxShadow: '0 2px 8px 0 rgb(0 0 0 / 20%)',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+  }
+
   return (
     <div className="App">
       <header className="App-header">
