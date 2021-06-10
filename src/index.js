@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-import Amplify, { ServiceWorker } from 'aws-amplify';
+import Amplify from 'aws-amplify';
 import awsExports from "./aws-exports";
 
 Amplify.configure(awsExports);
-const serviceWorker = new ServiceWorker();
+// const serviceWorker = new ServiceWorker();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,7 +19,8 @@ ReactDOM.render(
 );
 
 // Register the service worker with `service-worker.js` with service worker scope `/`.
-serviceWorker.register('/service-worker.js', '/');
+// serviceWorker.register('/service-worker.js', '/');
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

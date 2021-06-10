@@ -102,9 +102,9 @@ function App() {
                     <input style={{ padding: 15 }} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
                     <button style={{ fontSize: 14 }} className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">All Images</button>
                     <ul className="dropdown-menu">
-                      <li><a classaName="dropdown-item" href="/">Action</a></li>
+                      <li><a className="dropdown-item" href="/">Action</a></li>
                     </ul>
-                    <button style={{ fontSize: 14 }} class="btn btn-warning" type="button">Search</button>
+                    <button style={{ fontSize: 14 }} className="btn btn-warning" type="button">Search</button>
                   </div>
                 </div>
               </div>
@@ -113,7 +113,7 @@ function App() {
 
           <div style={{ display: 'flex', backgroundColor: '#333', height: 48, textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>
             Get 10 FREE Images when you get started on our 1 Month-Free Trial. 
-            <button style={{ marginLeft: 50 , fontSize: 14, fontWeight: 700 }} class="btn btn-warning" type="button">START NOW</button>
+            <button style={{ marginLeft: 50 , fontSize: 14, fontWeight: 700 }} className="btn btn-warning" type="button">START NOW</button>
           </div>
         </div>
 
