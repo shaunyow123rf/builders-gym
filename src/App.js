@@ -1,16 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { getToken, onMessageListener } from './firebase';
+import PushModal from './components/PushModal';
 
 function App() {
   const [token, setToken] = useState('');
+  const [isMessageReceived, setIsMessageReceived] = useState(false);
+  const [message, setMessage] = useState({});
+  const [show, setShow] = useState(false);
 
   getToken(setToken);
 
   onMessageListener().then(payload => {
-    console.log(payload);
+    console.log('Received foreground message ', payload);
+    
+    if (payload) {
+      setMessage(payload);
+      setIsMessageReceived(true);
+    }
   }).catch(err => console.log('failed: ', err));
+
+  useEffect(() => {
+    if (token) {
+      setToken(token);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    setShow(true);
+  }, [isMessageReceived]);
 
   const backgroundStyle = {
     backgroundImage: `url("https://assets-cdn.123rf.com/index/static/banner/global/101334292.jpg")`,
@@ -53,6 +72,10 @@ function App() {
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
+  }
+
+  const handleClose = () => {
+    setShow(false);
   }
 
   return (
@@ -150,6 +173,15 @@ function App() {
             </div>
           </div>
         </div>
+
+        {isMessageReceived && (
+          <PushModal 
+            show={show}
+            title={message.data['pinpoint.notification.title']}
+            body={message.data['pinpoint.notification.body']}
+            handleClose={handleClose}
+          />
+        )}
       </header>
     </div>
   );
