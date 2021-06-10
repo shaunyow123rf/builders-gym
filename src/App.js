@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import { getToken, onMessageListener } from './firebase';
 import PushModal from './components/PushModal';
 
@@ -187,4 +186,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default App;
