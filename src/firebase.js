@@ -21,20 +21,21 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 // Add the public key generated from the console here.
-export const getToken = (setTokenFound) => {
+export const getToken = (setToken) => {
     return messaging.getToken({vapidKey: 'BC1G_XNpBGvgYPHGs5fqsjZR3cqfYsagCYZoFIQfnoULm3lT1NgL5mzEN9SoIqxAsWIblQhVkMfyGuTty64Jltw'}).then((currentToken) => {
       if (currentToken) {
         console.log('current token for client: ', currentToken);
-        setTokenFound(true);
+        setToken(currentToken);
         // Track the token -> client mapping, by sending to backend server
         // show on the UI that permission is secured
       } else {
         console.log('No registration token available. Request permission to generate one.');
-        setTokenFound(false);
+        setToken('');
         // shows on the UI that permission is required 
       }
     }).catch((err) => {
       console.log('An error occurred while retrieving token. ', err);
+      setToken('');
       // catch error while creating client token
     });
 }

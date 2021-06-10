@@ -4,15 +4,11 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import { getToken, onMessageListener } from './firebase';
 
 function App() {
-  const [show, setShow] = useState(false);
-  const [isTokenFound, setTokenFound] = useState(false);
-  console.log(show);
-  console.log(isTokenFound);
-  getToken(setTokenFound);
+  const [token, setToken] = useState('');
+
+  getToken(setToken);
 
   onMessageListener().then(payload => {
-    setShow(true);
-    // setNotification({title: payload.notification.title, body: payload.notification.body})
     console.log(payload);
   }).catch(err => console.log('failed: ', err));
 
@@ -122,6 +118,7 @@ function App() {
                   </div>
                 </div>
               </div>
+              <p style={{ color: 'black' }}>Token: {token}</p>
             </div>
           </div>
 
